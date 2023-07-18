@@ -13,7 +13,6 @@ import { ProductsSkeleton } from "./productsSkeleton";
 import * as Slider from '@radix-ui/react-slider';
 import getBrandProductData from "@/lib/getBrandProductData";
 import Link from "next/link";
-import { setOrientation } from "@material-tailwind/react/components/Tabs/TabsContext";
 const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, selectedBrands, menuData, isBrandsPage }: { isSearchPage: boolean, selectedBrands: any, categoryData: any, brandsData: any, filterPath: any, menuData: any, isBrandsPage: boolean }) => {
 
     const { query } = useRouter()
@@ -149,9 +148,9 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
     }
 
     useEffect(() => {
-        // if(localStorage.getItem("user-preference-view-type") === "row"){
-        //     setIsRowView(true)
-        // }
+        if(localStorage.getItem("user-preference-view-type") === "row"){
+            setIsRowView(true)
+        }
 
         getCategoryData().then(cat_data => {
             setCatData(cat_data)
@@ -171,7 +170,7 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
         else {
             setIsRowView(false)
         }
-        // localStorage.setItem("user-preference-view-type", typeOfView)
+        localStorage.setItem("user-preference-view-type", typeOfView)
     }
     return (
         <div className=' max-w-[1450px] mx-auto  sm:px-[10px] px-[5px]'>
