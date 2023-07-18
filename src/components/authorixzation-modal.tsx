@@ -18,7 +18,6 @@ import { cn } from "@/lib/utils";
 import { Check, CheckCircle, ChevronDown, ChevronsUpDown } from "lucide-react";
 import { BsPatchCheckFill } from "react-icons/bs"
 import Image from "next/image";
-import { BottomSheet, BottomSheetRef } from 'react-spring-bottom-sheet'
 import ExampleSheet from "./sheet";
 import { Button, Cascader, Drawer, DrawerProps, Radio, Select, Space } from 'antd';
 import ComboboxDemo from "./comp";
