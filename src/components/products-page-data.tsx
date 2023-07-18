@@ -170,7 +170,7 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
         else {
             setIsRowView(false)
         }
-        localStorage.setItem("user-preference-view-type", typeOfView)
+        // localStorage.setItem("user-preference-view-type", typeOfView)
     }
     return (
         <div className=' max-w-[1450px] mx-auto  sm:px-[10px] px-[5px]'>
