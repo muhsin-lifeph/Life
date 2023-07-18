@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Link from 'next/dist/client/link'
-import Image from 'next/dist/client/image'
+import Image from 'next/image'
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { addToCart, decrementQuantity } from '../redux/cart.slice';
