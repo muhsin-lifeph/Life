@@ -28,7 +28,7 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
     })
 
     // const [activeElementIndx, setActiveElementIndx] = useState(query.singleCategory? null: 0)
-    const [isRowView, setIsRowView] = useState(false)
+    const [isRowView, setIsRowView] = useState(typeof window !== 'undefined' ? localStorage.getItem("user-preference-view-type") === "row" ? true : false : false)
     const [rangeSliderValue, setRangeSliderValue] = useState([50])
 
     var brandsSelected: string[] = []
@@ -148,9 +148,9 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
     }
 
     useEffect(() => {
-        if(localStorage.getItem("user-preference-view-type") === "row"){
-            setIsRowView(true)
-        }
+        // if (localStorage.getItem("user-preference-view-type") === "row") {
+        //     setIsRowView(true)
+        // }
 
         getCategoryData().then(cat_data => {
             setCatData(cat_data)
