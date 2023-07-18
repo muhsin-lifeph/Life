@@ -29,7 +29,7 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
     })
 
     // const [activeElementIndx, setActiveElementIndx] = useState(query.singleCategory? null: 0)
-    // const [isRowView, setIsRowView] = useState(false)
+    const [isRowView, setIsRowView] = useState(false)
     const [rangeSliderValue, setRangeSliderValue] = useState([50])
 
     var brandsSelected: string[] = []
@@ -149,6 +149,9 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
     }
 
     useEffect(() => {
+        // if(localStorage.getItem("user-preference-view-type") === "row"){
+        //     setIsRowView(true)
+        // }
 
         getCategoryData().then(cat_data => {
             setCatData(cat_data)
@@ -162,13 +165,13 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
     }
 
     const setUserPreference = (typeOfView: string) => {
-        // if (typeOfView === "row") {
-        //     setIsRowView(true)
-        // }
-        // else {
-        //     setIsRowView(false)
-        // }
-        localStorage.setItem("user-preference-view-type", typeOfView)
+        if (typeOfView === "row") {
+            setIsRowView(true)
+        }
+        else {
+            setIsRowView(false)
+        }
+        // localStorage.setItem("user-preference-view-type", typeOfView)
     }
     return (
         <div className=' max-w-[1450px] mx-auto  sm:px-[10px] px-[5px]'>
@@ -198,7 +201,7 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
                             </div>
                         </div>
                         <div className="ml-5">
-                            <input type="radio" id="grid-view" name="col-type" className="hidden peer" value="chatWithUs" />
+                            <input type="radio" checked={!isRowView} id="grid-view" name="col-type" className="hidden peer" value="chatWithUs" />
                             <label onClick={() => setUserPreference("col")} htmlFor="grid-view" className="cursor-pointer -m-2  p-2 mr-2 text-gray-400 hover:text-gray-500 sm:ml-7 peer-checked:text-blue-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-5 h-5" viewBox="0 0 16 16">
                                     <path d="M1 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V4zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V4zM1 9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V9zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V9zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V9z" />
@@ -206,7 +209,7 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
                             </label>
                         </div>
 
-                        <input type="radio"  id="list-view" name="col-type" className="hidden peer" value="chaWithUs" />
+                        <input type="radio" checked={isRowView} id="list-view" name="col-type" className="hidden peer" value="chaWithUs" />
                         <label onClick={() => setUserPreference("row")} htmlFor="list-view" className="-m-2 cursor-pointer p-2 text-gray-400 hover:text-gray-500 peer-checked:text-blue-500">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="w-5 h-5" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z" />
@@ -335,14 +338,14 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
                                 )}
                             </div> : null}
                     <div className={`${isSearchPage ? ' col-span-full py-7' : "col-span-3"}`}>
-                        <div className={`grid ${localStorage? localStorage.getItem("user-preference-view-type") === "row" ? "!grid-cols-1 !gap-0" : "":""} ${isSearchPage ? "xl:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 " : "  md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1"}  xs:grid-cols-2 grid-cols-1 sm:gap-3 gap-1`}>
+                        <div className={`grid ${isRowView ? "!grid-cols-1 !gap-0" : ""} ${isSearchPage ? "xl:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 " : "  md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1"}  xs:grid-cols-2 grid-cols-1 sm:gap-3 gap-1`}>
                             {
                                 categoryData.products.length > 0 ? categoryData.products.map((pro_data: any) => (
                                     productFilterApplied ?
                                         skeletonArray.map(sk =>
                                             sk
                                         ) :
-                                        <SingleProductData pro_data={pro_data} isRowView={localStorage ? localStorage.getItem("user-preference-view-type") === "row":false} />
+                                        <SingleProductData pro_data={pro_data} isRowView={isRowView} />
                                 ))
                                     : <div className="w-full col-span-3">
                                         <h1 className="text-blue-500 text-center py-2">No Products Found</h1>
@@ -355,7 +358,7 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
                                         skeletonArray.map(sk =>
                                             sk
                                         ) :
-                                        <SingleProductData pro_data={pro_data} isRowView={localStorage ? localStorage.getItem("user-preference-view-type") === "row":false} />
+                                        <SingleProductData pro_data={pro_data} isRowView={isRowView} />
                                 ))
                             }
                         </div>
