@@ -335,14 +335,14 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
                                 )}
                             </div> : null}
                     <div className={`${isSearchPage ? ' col-span-full py-7' : "col-span-3"}`}>
-                        <div className={`grid ${localStorage.getItem("user-preference-view-type") === "row" ? "!grid-cols-1 !gap-0" : ""} ${isSearchPage ? "xl:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 " : "  md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1"}  xs:grid-cols-2 grid-cols-1 sm:gap-3 gap-1`}>
+                        <div className={`grid ${localStorage? localStorage.getItem("user-preference-view-type") === "row" ? "!grid-cols-1 !gap-0" : "":""} ${isSearchPage ? "xl:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 " : "  md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1"}  xs:grid-cols-2 grid-cols-1 sm:gap-3 gap-1`}>
                             {
                                 categoryData.products.length > 0 ? categoryData.products.map((pro_data: any) => (
                                     productFilterApplied ?
                                         skeletonArray.map(sk =>
                                             sk
                                         ) :
-                                        <SingleProductData pro_data={pro_data} isRowView={localStorage.getItem("user-preference-view-type") === "row"} />
+                                        <SingleProductData pro_data={pro_data} isRowView={localStorage ? localStorage.getItem("user-preference-view-type") === "row":false} />
                                 ))
                                     : <div className="w-full col-span-3">
                                         <h1 className="text-blue-500 text-center py-2">No Products Found</h1>
@@ -355,7 +355,7 @@ const ProductsPageData = ({ filterPath, categoryData, brandsData, isSearchPage, 
                                         skeletonArray.map(sk =>
                                             sk
                                         ) :
-                                        <SingleProductData pro_data={pro_data} isRowView={localStorage.getItem("user-preference-view-type") === "row"} />
+                                        <SingleProductData pro_data={pro_data} isRowView={localStorage ? localStorage.getItem("user-preference-view-type") === "row":false} />
                                 ))
                             }
                         </div>
